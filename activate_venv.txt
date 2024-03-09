@@ -1,0 +1,1 @@
+source custom_env/virtualenv/Scripts/activate

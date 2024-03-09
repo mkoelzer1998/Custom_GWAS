@@ -14,4 +14,9 @@ Remaining Work:
 
 We would like to test GWAS using different models rather than just linear regression. We also still need to do a deeper comparison of our implementation with that of plink's. We want to compare our results and runtime to then analyze the performance of our model. Something that we noticed was that the runtime of the excecutable took a long time. There are two main portions that take up most of the time: reading the vcf file and running GWAS on the data. We want to be able to decrease the runtime by finding out ways to optimize these two portions. This could be done by possibly parallelizing any parts that we can.
 
+Installation Steps:
+Run "bash setup_virtual.bash" to create a virtual environment
+run "source custom_env/virtualenv/Scripts/activate" to start virtual environment
+run "bash installs.bash" to install necessary packages
+Go to https://drive.google.com/drive/u/1/folders/1GuMk7VcI40INi8544QBJkMPRPchA4eHy to get data file
 

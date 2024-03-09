@@ -8,6 +8,7 @@ import statsmodels.api as sm
 from qqman import qqman
 import sys
 import argparse
+# import multiprocessing.pool
 
 #Deprecated
 class LinearRegressionModel:
@@ -23,7 +24,7 @@ class LinearRegressionModel:
         sum_x_sum_y = np.sum(self.xs)*np.sum(self.Ys)
         n = len(self.xs)
 
-        Beta = (sum_xy - (sum_x_sum_y / n)) / (sum_squared_x - (sum_x_squared / n))        
+        Beta = (sum_xy - (sum_x_sum_y / n)) / (sum_squared_x - (sum_x_squared / n))
         return Beta
 
 #Add column of ones before values
@@ -89,8 +90,14 @@ def main():
                 vcf_samples.append(sample.sample)
             break
         
-        vcf_reader = vcf.Reader(filename="gwas.vcf.gz")
+        #pool = multiprocessing.Pool() # use all possible cores
+        vcf_reader = vcf.Reader(filename=vcf_file)
+        
+        
         Xj = []
+
+        
+
 
         for record in tqdm(vcf_reader):
             snp = []
