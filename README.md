@@ -2,7 +2,9 @@
 
 ## Project Members
 Madison Koelzer
+
 Nathan Bui
+
 Group Number: 19
 
 ## Current Overview:
