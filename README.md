@@ -1,28 +1,53 @@
-# Custom_GWAS
+# Custom GWAS
 
-Members:
+## Project Members
 Madison Koelzer
 Nathan Bui
-
 Group Number: 19
 
-Current Overview:
+## Current Overview:
+For our project, we are building our own custom GWAS using linear regression that will take in a genotype vcf file and a phenotype data file and output a data file containing p-values for each SNP in the genotype vcf file. 
 
-For our project, we are building our own custom GWAS using linear regression that will take in a simulated phenotype data file and a genotype vcf file and output a data file containing p-values for each SNP in the genotype vcf file. We have a python executable, GWAS.py, that takes in two system arguments corresponding to each data file. The two arguments are vcf_file and phen_file. The vcf_file should store the genotype data for n samples and the phen_file should store the phenotype data for n samples. In our case, we use the simulated phenotype data and the genotype data given to us in problem set 3. This then allows us to compare our custom GWAS with what we did in problem set 3. The executable will read both files in and organize the data so that we can run a linear regression model on the data to obtain p values corresponding to each SNP. We store each value along with its corresponding chromosome, rID, and position into a dataframe. The dataframe is then written to a output.csv file where we can use that data to produce visualizations such as qq plots and manhattan plots as demonstrated in our visuals.ipynb. The following line shows how to run the python executable on the command line given the files gwas.phen and pwas.vcf.gz:
+### Methodology
+We use the simulated phenotype data and the genotype data given to us in problem set 3. This will then allow us to compare our custom GWAS with what we did in problem set 3. The executable reads both files in and organizes the data so that we can run linear regression models on the data to obtain p values corresponding to each SNP. We store each p-value along with its corresponding chromosome, rID, and position into a dataframe. The dataframe is then written to a ```output.csv``` file where we can use that data to produce visualizations such as qq plots and manhattan plots, as demonstrated in ```visuals.ipynb```.
 
-python GWAS.py "gwas.vcf.gz" "gwas.phen"
+## Setup
+We include the following setup guide to get started with our tool.
+### Setting up a Virtual Environmennt
+Run the following script to build a virtual environment.
+```
+bash setup_virtual.bash 
+```
+To start up this virtual environment, run the following from the same directory as the project:
+```
+source custom_env/virtualenv/Scripts/activate
+```
+Now that you have a fresh virtual environment setup, the dependencies can be started with the following script:
+```
+bash installs.bash
+```
+### Getting Additional Files
+We perform some analysis on our tool, and the necessary files for this analysis can be found at the following google drive:
+```
+https://drive.google.com/drive/u/1/folders/1GuMk7VcI40INi8544QBJkMPRPchA4eHy
+```
+Just copy the files from this drive into the same repository as this tool
 
-For help and a description about the python executable, you can run:
-
+## Using the tool
+Our tool is conveniently packaged into a python script. You can run it using the following structure:
+```
+python GWAS.py -vcf_file "file_name.vcf.gz" -phen_file "file_name.phen"
+```
+For help and a description about this python executable, you can run:
+```
 python GWAS.py -h
+```
 
-Remaining Work:
+## Analysis
+Analysis was performed on our tool to compare its efficiency to that of Plink's implementation. Note you must have the files from the above [section](#getting-additional-files). To view our tools efficiency, we first run our python script on the test dataset:
+```
+python GWAS.py "data/gwas.vcf.gz" "data/gwas.phen"
+```
+This command may take considerable time to run. On our machine, it takes roughly 13 minutes - 10 to read in all the data, and 3 to perform the model fitting. 
 
-We would like to test GWAS using different models rather than just linear regression. We also still need to do a deeper comparison of our implementation with that of plink's. We want to compare our results and runtime to then analyze the performance of our model. Something that we noticed was that the runtime of the excecutable took a long time. There are two main portions that take up most of the time: reading the vcf file and running GWAS on the data. We want to be able to decrease the runtime by finding out ways to optimize these two portions. This could be done by possibly parallelizing any parts that we can.
-
-Installation Steps:
-Run "bash setup_virtual.bash" to create a virtual environment
-run "source custom_env/virtualenv/Scripts/activate" to start virtual environment
-run "bash installs.bash" to install necessary packages
-Go to https://drive.google.com/drive/u/1/folders/1GuMk7VcI40INi8544QBJkMPRPchA4eHy to get data file
-
+Next, we will run our python notebook ```visuals.ipynb```. Note that the final cell will not run without an additional file. For users who are members of the CSE 210 Course, the file needed is ```ps3_gwas.assoc.linear``` from Problem Set 3. If everything has worked correctly, the graphs generated from our tool should be identical to those generated using Plink in Problem Set 3.
