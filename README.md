@@ -33,7 +33,7 @@ We perform some analysis on our tool, and the necessary files for this analysis 
 ```
 https://drive.google.com/drive/u/1/folders/1GuMk7VcI40INi8544QBJkMPRPchA4eHy
 ```
-Just copy the files from this drive into the same repository as this tool
+Just copy the data directory from this drive into the same repository as this tool. We also include a copy of outputs.csv if you want to skip the GWAS running below and just see the results with ```visuals.ipynb```.
 
 ## Using the tool
 Our tool is conveniently packaged into a python script. You can run it using the following structure:
