@@ -14,7 +14,7 @@ For our project, we are building our own custom GWAS using linear regression tha
 We use the simulated phenotype data and the genotype data given to us in problem set 3. This will then allow us to compare our custom GWAS with what we did in problem set 3. The executable reads both files in and organizes the data so that we can run linear regression models on the data to obtain p values corresponding to each SNP. We store each p-value along with its corresponding chromosome, rID, and position into a dataframe. The dataframe is then written to a ```output.csv``` file where we can use that data to produce visualizations such as qq plots and manhattan plots, as demonstrated in ```visuals.ipynb```.
 
 ## Setup
-We include the following setup guide to get started with our tool.
+We include the following setup guide to get started with our tool. We note here that this is only tested and supported on windows machines running python 3.10.11, although we expect newer versions to function as well.
 ### Setting up a Virtual Environmennt
 Run the following script to build a virtual environment.
 ```
