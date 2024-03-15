@@ -50,6 +50,6 @@ Analysis was performed on our tool to compare its efficiency to that of Plink's 
 ```
 python GWAS.py "data/gwas.vcf.gz" "data/gwas.phen"
 ```
-This command may take considerable time to run. On our machine, it takes roughly 13 minutes - 10 to read in all the data, and 3 to perform the model fitting. 
+This command may take considerable time to run. On our machine, it takes roughly 4 minutes - 1 to read in all the data, and 3 to perform the model fitting. 
 
 Next, we will run our python notebook ```visuals.ipynb```. Note that the final cell will not run without an additional file. For users who are members of the CSE 210 Course, the file needed is ```ps3_gwas.assoc.linear``` from Problem Set 3. If everything has worked correctly, the graphs generated from our tool should be identical to those generated using Plink in Problem Set 3.
