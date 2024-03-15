@@ -1,14 +1,11 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import vcf
 import pandas as pd
 from tqdm import tqdm
 import statsmodels.api as sm
-from qqman import qqman
 import sys
 import argparse
-# import multiprocessing.pool
 
 #Deprecated
 class LinearRegressionModel:
@@ -81,40 +78,45 @@ def main():
 
         vcf_reader = vcf.Reader(filename=vcf_file)
         vcf_samples = []
-        BP = []
-        CHR = []
-        SNP = []
 
         for record in vcf_reader:
             for sample in record.samples:
                 vcf_samples.append(sample.sample)
             break
         
-        #pool = multiprocessing.Pool() # use all possible cores
         vcf_reader = vcf.Reader(filename=vcf_file)
-        
-        
+
+        #####################################
+        print("Building pandas dataframe...")
+        vcf_df = pd.read_csv('data/gwas.vcf.gz', sep="\t", comment='#', header=None)
+        CHR = vcf_df[0].to_numpy()
+        BP = vcf_df[1].to_numpy()
+        SNP = vcf_df[2].to_numpy()
+
+        vcf_arr = vcf_df.to_numpy()
+
+        startSamples = 0
+        for i in range(len(vcf_df.columns)):
+            if type(vcf_arr[0][i]) == str and len(vcf_arr[0][i]) == 3 and '|' in vcf_arr[0][i]:
+                startSamples = i
+                break
+
         Xj = []
 
+        print("Processing dataframe")
+        for i in tqdm(range(len(vcf_arr))):
+            all_count = []
+            for allele in vcf_arr[i][startSamples:len(vcf_arr[0])]:
+                all_count.append(int(allele[0] != '0') + int(allele[2] != '0'))
+            Xj.append(all_count)
         
-
-
-        for record in tqdm(vcf_reader):
-            snp = []
-            BP.append(record.POS)
-            CHR.append(record.CHROM)   
-            SNP.append(record.ID)
-            for sample in record.samples:
-                gt_alleles = sample.gt_alleles
-                snp.append(int(gt_alleles[0] != '0') + int(gt_alleles[1] != '0')) #(gt_alleles[0] != 0) + ... # 0|2 -> 1
-            Xj.append(snp)
-
+        ######################################################################
         organized_phen_values = []
         for vSample in vcf_samples:
             for i in range(len(phen_samples)):
                 if vSample == phen_samples[i]:
                     organized_phen_values.append(phen_values[i])
-        print("Input Finished")
+        print("Input Processing Finished")
     except:
         print("Unable to read phenotype and/or genotype data from files.")
 
